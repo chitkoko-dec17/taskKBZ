@@ -1,0 +1,65 @@
+@extends('layout')
+ 
+@section('content')
+ 	<div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h2>Holiday</h2>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-success" href="{{ route('holiday.create') }}"> Create New Holiday</a>
+            </div>
+        </div>
+    </div>
+   
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+
+    @if ($message = Session::get('error'))
+        <div class="alert alert-danger">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+   
+    <table class="table table-bordered">
+        <tr>
+            <th width="50px">No</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th width="280px">Action</th>
+        </tr>
+        @foreach ($data['holidays'] as $index => $holiday)
+        <tr>
+            <td>{{ ++$index }}</td>
+            <td>{{ $holiday->title }}</td>
+            <td>{{ $holiday->start_date ." To ". $holiday->end_date }}</td>
+            <td>
+                <form action="{{ route('holiday.destroy',$holiday->id) }}" method="POST">
+       
+                    <a class="btn btn-primary" href="{{ route('holiday.edit',$holiday->id) }}">Edit</a>
+   
+                    @csrf
+                    @method('DELETE')
+      
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+ 
+@endsection
+
+@push('scripts')
+    <script type="text/javascript">
+
+    	//hide alert message after 5 sec 
+        setTimeout(function() {
+           $('.alert').fadeOut('fast');
+        }, 5000);
+
+	</script>
+@endpush
