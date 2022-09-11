@@ -24,4 +24,4 @@ Assignment project from KBZ Interview
 - Enter `php artisan migrate` to run migration  
 - Enter `php artisan db:seed` for test data
 - Enter `php artisan serve` to start application
-- Open http://localhost:8000 or http://127.0.0.1:8000 to access frontend vue ui
+- Open http://localhost:8000 to access frontend
